@@ -13,53 +13,54 @@ export const users = async (req, res) => {
 
 export const signUp = async (req, res) => {
   try {
-    const { email, password, name } = req.body;
+    const { email, password, firstName, lastName} = req.body;
     if (!email || email.length < 5 || !password || password.length < 5) {
-      return res.status(400).json({ error: "hatali giris" });
+      return res.status(400).json({ error: "invalid input" });
     }
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
     const user = new User({
+      firstName,
+      lastName,
       email,
       passwordHash,
     });
 
     await user.save();
-    return res.json({ msg: "tamam" });
+    return res.json({ msg: "ok" });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: "server hatasi" });
+    return res.status(500).json({ error: "server error" });
   }
 };
 
-export const signIn = async (res, req) => {
+export const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
+    //console.log("signIn called: email: ", email, "password: ", password);
+    // Validierung
     if (!email || email.length < 5 || !password || password.length < 5) {
-      return res.status(400).json({ error: "hatali giris" });
+      return res.status(400).json({ error: "invalid input" });
     }
-
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).json({ error: "müsteri bulunamadi" });
+      return res.status(404).json({ error: "user not found" });
     }
 
     const passwordMatch = await bcrypt.compare(password, user.passwordHash);
     if (!passwordMatch) {
-      return res.status(400).json({ error: "parola yanlis girildi" });
+      return res.status(400).json({ error: "password does not match" });
     }
+    const token = jwt.sign({ email, role: user.role, name: user.firstName }, process.env.JWT_SECRET, {
 
-    const token = jwt.sign(
-      { email, role: user.role, name: user.name },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: 60000,
-      }
-    );
+      expiresIn: 60000,
+
+    });
+    return res.json({ token });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: "server hatasi" });
+    return res.status(500).json({ error: "server error" });
   }
 };
 
@@ -73,7 +74,7 @@ export const updateUser = async (res, req) => {
     }
 
     const responce = await User.findOne({ email });
-    //console.log("User find: ", responce);
+    console.log("User find: ", responce);
 
     if (!user) {
       return res.status(400).json({ error: "müsteri bulunamadi" });
@@ -93,6 +94,7 @@ export const updateUser = async (res, req) => {
       { _id: user._id },
       { name: user.name, email: user.email, role: user.role }
     );
+    return res.json({ token });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: "server hatasi" });

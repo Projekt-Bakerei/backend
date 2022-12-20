@@ -8,11 +8,12 @@ import userRoutes from "./routers/users.js";
 dotenv.config();
 
 const app = express();
+app.use(express.json());
 app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 
-app.use("/", userRoutes);
+app.use("/users", userRoutes);
 
 app.get("/", (req, res) => {
   return res.json({ msg: "Mohasebe API up and running" });
