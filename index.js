@@ -12,7 +12,7 @@ app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 
-app.use("users", userRoutes);
+app.use("/", userRoutes);
 
 app.get("/", (req, res) => {
   return res.json({ msg: "Mohasebe API up and running" });
@@ -20,6 +20,6 @@ app.get("/", (req, res) => {
 
 mongoose.connect(process.env.MONGO_CONNECTION).then(() => {
   app.listen(PORT, () => {
-    console.log(`Mohasebe API is running ${PORT}`);
+    console.log(`Mohasebe API is running https://localhost:${PORT}`);
   });
 });
