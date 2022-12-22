@@ -13,9 +13,9 @@ export const users = async (req, res) => {
 
 export const signUp = async (req, res) => {
   try {
-    const { email, password, firstName, lastName} = req.body;
+    const { email, password, firstName, lastName } = req.body;
     if (!email || email.length < 5 || !password || password.length < 5) {
-      return res.status(400).json({ error: "invalid input" });
+      return res.status(400).json({ error: "hatali giris" });
     }
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
@@ -41,7 +41,7 @@ export const signIn = async (req, res) => {
     //console.log("signIn called: email: ", email, "password: ", password);
     // Validierung
     if (!email || email.length < 5 || !password || password.length < 5) {
-      return res.status(400).json({ error: "invalid input" });
+      return res.status(400).json({ error: "hatali giris" });
     }
     const user = await User.findOne({ email });
     if (!user) {
@@ -52,11 +52,13 @@ export const signIn = async (req, res) => {
     if (!passwordMatch) {
       return res.status(400).json({ error: "password does not match" });
     }
-    const token = jwt.sign({ email, role: user.role, name: user.firstName }, process.env.JWT_SECRET, {
-
-      expiresIn: 60000,
-
-    });
+    const token = jwt.sign(
+      { email, role: user.role, name: user.firstName },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: 60000,
+      }
+    );
     return res.json({ token });
   } catch (error) {
     console.log(error);
