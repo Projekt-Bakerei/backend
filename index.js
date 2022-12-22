@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import { sequelizeCrud } from "express-sequelize-crud";
+// import { sequelizeCrud } from "express-sequelize-crud";
 import userRoutes from "./routers/users.js";
 
 dotenv.config();
@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 app.use("/users", userRoutes);
 
