@@ -17,4 +17,4 @@ const customerSchema = new mongoose.Schema({
   mobil: { type: Number },
 });
 
-export const Custoemr = mongoose.model("Customer", customerSchema, "customers");
+export const Customer = mongoose.model("Customer", customerSchema, "customers");
