@@ -108,7 +108,7 @@ export const editCustomer = async (req, res) => {
     res.json(responce);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "server hatasi" });
   }
 };
 
