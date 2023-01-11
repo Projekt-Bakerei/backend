@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 
 const customerSchema = new mongoose.Schema({
+ 
   kodu: { type: String },
-  passiv: { type: String, required: true, trim: true },
-  active: { type: Boolean },
+   passiv: { type: String, trim: true, default: false },
+  //passiv: { type: String },
   hitab: { type: String },
   kategory: { type: String },
   ismi: { type: String },
@@ -13,8 +14,20 @@ const customerSchema = new mongoose.Schema({
   cadde: { type: String },
   plz: { type: Number },
   yer: { type: String },
-  telefon: { type: Number },
-  mobil: { type: Number },
-});
+  telefon: { type: String },
+  mobil: { type: String },
+
+},
+{
+  timestamps: true,
+  versionKey: false,
+  id: true,
+  toJSON: {
+    transform(doc, ret){
+      ret.id = ret._id
+      delete ret._id
+    }
+  }
+})
 
 export const Customer = mongoose.model("Customer", customerSchema, "customers");

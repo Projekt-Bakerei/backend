@@ -9,6 +9,7 @@ import customerRoutes from "./routers/customers.js";
 dotenv.config();
 
 const app = express();
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
 
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
   return res.json({ msg: "Mohasebe API up and running" });
 });
 
+mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGO_CONNECTION).then(() => {
   app.listen(PORT, () => {
     console.log(`Mohasebe API is running https://localhost:${PORT}`);

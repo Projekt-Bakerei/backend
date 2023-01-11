@@ -56,7 +56,7 @@ export const signIn = async (req, res) => {
       { email, role: user.role, name: user.firstName },
       process.env.JWT_SECRET,
       {
-        expiresIn: 60000,
+        expiresIn: 100000 * 60,
       }
     );
     return res.json({ token });
