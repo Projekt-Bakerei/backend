@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import userRoutes from "./routers/users.js";
 import customerRoutes from "./routers/customers.js";
 import miterbeiterRoutes from "./routers/miterbeiters.js";
+import miterbeiterRoutes from "./routers/artikels.js";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ const PORT = process.env.PORT || 8080;
 app.use("/users", userRoutes);
 app.use("/customers", customerRoutes);
 app.use("/miterbeiters", miterbeiterRoutes);
+app.use("/artikels", artikelRoutes);
 
 app.get("/", (req, res) => {
   return res.json({ msg: "Mohasebe API up and running" });
