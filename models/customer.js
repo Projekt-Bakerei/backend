@@ -75,10 +75,12 @@ const customerSchema = new mongoose.Schema({
       delete ret._id
     }
   }
+
 },
 {
   rechnung: [RechnungSchema],
 }
 )
+
 
 export const Customer = mongoose.model("Customer", customerSchema, "customers");
