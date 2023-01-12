@@ -10,7 +10,7 @@ const router = express.Router();
 
 // Miterbeiter Route
 router.get("/", miterbeiters);
-router.post("/add", addMiterbeiter);
+router.post("/addmiterbeiter", addMiterbeiter);
 router.put("/editmiterbeiter", editMiterbeiter);
 router.put("/editmiterbeiter/:id", editMiterbeiter);
 router.delete("/delete", deleteMiterbeiter);
