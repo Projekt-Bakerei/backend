@@ -13,7 +13,6 @@ export const customers = async (req, res) => {
 };
 
 // Add Customers
-
 export const addCustomer = async (req, res) => {
   try {
     const { 
@@ -65,61 +64,6 @@ export const addCustomer = async (req, res) => {
     return res.status(500).json({ error: "server error" });
   }
 };
-
-
-// export const addCustomer = async (req, res) => {
-    
-//     try {
-//       const token = req.body.token || req.query.token || req.headers["x-access-token"] || req.headers.authorization;
-//     if (!token) {
-//       return res.status(403).send("A token is required for authentication");
-//     }
-//      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    
-//     if (decoded.user !==0 ) {
-//        return res.status(401).json({ error:  error.message });
-//     }
-//     const {
-//       kodu,
-//       passiv,
-//       hitab,
-//       kategory,
-//       ismi,
-//       kdv,
-//       kisi,
-//       sekli,
-//       cadde,
-//       plz,
-//       yer,
-//       telefon,
-//       mobil,
-//     } = req.body;
-//     console.log("Frontend kommt:",req.body);
-//     const newCustomer = new Customer({
-//       kodu,
-//       passiv,
-//       hitab,
-//       kategory,
-//       ismi,
-//       kdv,
-//       kisi,
-//       sekli,
-//       cadde,
-//       plz,
-//       yer,
-//       telefon,
-//       mobil,
-//     });
-//     newCustomer = await newCustomer.save();
-
-//      res.send(newCustomer);
-//     return res.json({ msg: "ok" });
-//   } catch (error) {
-    
-//     console.log("AddCustomer:", req.body.token);
-//     return res.status(500).json({ error:  error.message });
-//   }
-// };
 
 // Edit Customer
 export const editCustomer = async (req, res) => {
