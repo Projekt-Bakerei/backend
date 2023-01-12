@@ -22,9 +22,11 @@ app.get("/", (req, res) => {
   return res.json({ msg: "Mohasebe API up and running" });
 });
 
+
 mongoose.set('strictQuery', false);
+
 mongoose.connect(process.env.MONGO_CONNECTION).then(() => {
   app.listen(PORT, () => {
-    console.log(`Mohasebe API is running https://localhost:${PORT}`);
+    console.log(`Mohasebe API is running http://localhost:${PORT}`);
   });
 });
