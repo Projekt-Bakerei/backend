@@ -14,8 +14,13 @@ export const artikels = async (req, res) => {
 // Add Artikel
 export const addArtikel = async (req, res) => {
   try {
-    const { artikelName, artikelPrice, artikelBeschreibung, artikelRabat } =
-      req.body;
+    const {
+      artikelName,
+      artikelPrice,
+      artikelBeschreibung,
+      artikelRabat,
+      artikelKodu,
+    } = req.body;
     const token =
       req.body.token ||
       req.query.token ||
@@ -39,6 +44,7 @@ export const addArtikel = async (req, res) => {
       artikelPrice,
       artikelBeschreibung,
       artikelRabat,
+      artikelKodu,
     });
 
     await artikel.save();
@@ -57,14 +63,20 @@ export const editArtikel = async (req, res) => {
     if (!decoded) {
       return res.status(401).json({ error: "giris yap" });
     }
-    const { artikelName, artikelPrice, artikelBeschreibung, artikelRabat } =
-      req.body;
+    const {
+      artikelName,
+      artikelPrice,
+      artikelBeschreibung,
+      artikelRabat,
+      artikelKodu,
+    } = req.body;
 
     const newArtikel = new Artikel({
-        artikelName,
-        artikelPrice,
-        artikelBeschreibung,
-        artikelRabat,
+      artikelName,
+      artikelPrice,
+      artikelBeschreibung,
+      artikelRabat,
+      artikelKodu,
     });
 
     const responce = await newArtikel.save();

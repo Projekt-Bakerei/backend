@@ -5,6 +5,7 @@ const artikelSchema = new mongoose.Schema({
   artikelPrice: { type: String },
   artikelBeschreibung: {  type: String },
   artikelRabat: {  type: String },
+  artikelKodu: {  type: String },
   },
   {
     timestamps: true,
