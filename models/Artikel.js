@@ -22,3 +22,4 @@ const artikelSchema = new mongoose.Schema({
 
 export const AddArtikel = mongoose.model("Artikel", artikelSchema, "artikels");
 //Comment
+//Comment2
