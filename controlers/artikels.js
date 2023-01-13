@@ -1,25 +1,25 @@
-import { Artikel } from "../models/Artikel.js.old";
+import { AddArtikel } from "../models/Artikel.js";
 import jwt from "jsonwebtoken";
 
 //get Artikels
-export const artikels = async (req, res) => {
+export const GetNewArtikels = async (req, res) => {
   try {
-    const artikels = await Artikel.find().exec();
-    res.json(artikels);
+    const GetArtikels = await AddArtikel.find().exec();
+    res.json(GetArtikels);
   } catch (error) {
     res.status(500).json({ error: "server hatasi" });
   }
 };
 
 // Add Artikel
-export const addArtikel = async (req, res) => {
+export const addNewArtikel = async (req, res) => {
   try {
     const {
-      artikelName,
-      artikelPrice,
-      artikelBeschreibung,
-      artikelRabat,
-      artikelKodu,
+      NewartikelName,
+      NewartikelPrice,
+      NewartikelBeschreibung,
+      NewartikelRabat,
+      NewartikelKodu,
     } = req.body;
     const token =
       req.body.token ||
@@ -39,15 +39,15 @@ export const addArtikel = async (req, res) => {
       return res.status(401).json({ error: error.message });
     }
     console.log("Decoded:", decoded);
-    const artikel = new Artikel({
-      artikelName,
-      artikelPrice,
-      artikelBeschreibung,
-      artikelRabat,
-      artikelKodu,
+    const Newartikel = new AddArtikel({
+      NewartikelName,
+      NewartikelPrice,
+      NewartikelBeschreibung,
+      NewartikelRabat,
+      NewartikelKodu,
     });
 
-    await artikel.save();
+    await Newartikel.save();
     return res.json({ msg: "ok" });
   } catch (error) {
     console.log(error);
@@ -56,7 +56,7 @@ export const addArtikel = async (req, res) => {
 };
 
 // Edit Artikel
-export const editArtikel = async (req, res) => {
+export const editNewArtikel = async (req, res) => {
   try {
     const token = req.headers.authorization;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -64,19 +64,19 @@ export const editArtikel = async (req, res) => {
       return res.status(401).json({ error: "giris yap" });
     }
     const {
-      artikelName,
-      artikelPrice,
-      artikelBeschreibung,
-      artikelRabat,
-      artikelKodu,
+      NewartikelName,
+      NewartikelPrice,
+      NewartikelBeschreibung,
+      NewartikelRabat,
+      NewartikelKodu,
     } = req.body;
 
     const newArtikel = new Artikel({
-      artikelName,
-      artikelPrice,
-      artikelBeschreibung,
-      artikelRabat,
-      artikelKodu,
+      NewartikelName,
+      NewartikelPrice,
+      NewartikelBeschreibung,
+      NewartikelRabat,
+      NewartikelKodu,
     });
 
     const responce = await newArtikel.save();
@@ -88,12 +88,12 @@ export const editArtikel = async (req, res) => {
 };
 
 // Delete Artikel
-export const deleteArtikel = async (req, res) => {
+export const deleteNewArtikel = async (req, res) => {
   try {
-    const artikels = await Artikel.findByIdAndDelete(
-      req.params.artikelId
+    const newartikels = await newartikels.findByIdAndDelete(
+      req.params.NewartikelId
     ).exec();
-    res.json(artikels);
+    res.json(newartikels);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "server hatasi" });
