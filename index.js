@@ -17,18 +17,19 @@ app.use(cors());
 
 const PORT = process.env.PORT || 8080;
 
+
 app.use("/users", userRoutes);
 app.use("/customers", customerRoutes);
 app.use("/miterbeiters", miterbeiterRoutes);
 app.use("/newartikels", artikelRoutes);
 
 app.get("/", (req, res) => {
-  return res.json({ msg: "Mohasebe API up and running" });
+  return res.json({ msg: "Lexware API up and running" });
 });
 
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGO_CONNECTION,{ useNewUrlParser: true }).then(() => {
   app.listen(PORT, () => {
-    console.log(`Mohasebe API is running http://localhost:${PORT}`);
+    console.log(`Lexware API is running: ${PORT}`);
   });
 });
