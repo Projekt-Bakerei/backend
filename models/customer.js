@@ -26,7 +26,8 @@ export const FirmaRechnung = mongoose.model(
   FirmaRechnungSchema
 );
 
-const ArtickelRechnungSchema = new mongoose.Schema(
+
+const ArtickelSchema = new mongoose.Schema(
   {
     artikelName: { type: String },
     artikelPrice: { type: String },
@@ -46,9 +47,38 @@ const ArtickelRechnungSchema = new mongoose.Schema(
     },
   }
 );
-export const ArtickelRechnung = mongoose.model(
-  "ArtickelRechnung",
-  ArtickelRechnungSchema
+export const Artickel = mongoose.model(
+  "Artickel",
+  ArtickelSchema
+);
+
+const ArtickelCustomerSchema = new mongoose.Schema(
+  {
+    artikelName: { type: String },
+    artikelPrice: { type: String },
+    artikelBeschreibung: { type: String },
+    artikelRabat: { type: String },
+    artikelKodu: { type: String },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+    id: true,
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
+  ,
+  {
+    artickel: [Artickel],
+  }
+);
+export const ArtickelCustomer = mongoose.model(
+  "ArtickelCustomer",
+  ArtickelCustomerSchema
 );
 
 const RechnungSchema = new mongoose.Schema(
@@ -71,7 +101,7 @@ const RechnungSchema = new mongoose.Schema(
     firmato: [FirmaRechnungSchema],
   },
   {
-    artickel: [ArtickelRechnung],
+    artickel: [ArtickelCustomer],
   }
 );
 export const Rechnung = mongoose.model("Rechnung", RechnungSchema);

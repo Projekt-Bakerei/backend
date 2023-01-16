@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 });
 
 mongoose.set('strictQuery', false);
-mongoose.connect(process.env.MONGO_CONNECTION).then(() => {
+mongoose.connect(process.env.MONGO_CONNECTION,{ useNewUrlParser: true }).then(() => {
   app.listen(PORT, () => {
     console.log(`Mohasebe API is running http://localhost:${PORT}`);
   });
