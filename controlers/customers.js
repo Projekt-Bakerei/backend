@@ -1,4 +1,5 @@
 import { Customer } from "../models/customer.js";
+import {ArtikelCustomer} from "../models/customer.js"
 import jwt from "jsonwebtoken";
 
 // Get Customers
@@ -8,6 +9,15 @@ export const customers = async (req, res) => {
     res.json(customers);
   } catch (error) {
     res.status(500).json({ error: "server error" });
+  }
+};
+
+export const getCustomer = async (req, res) => {
+  try {
+    const customers = await Customer.findById(req.params.id);
+    res.send(customers);
+  } catch (err) {
+    return res.status(500).send({ message: err.message });
   }
 };
 
@@ -133,54 +143,12 @@ export const deleteCustomer = async (req, res) => {
   }
 };
 
-// Create Artikel
-export const addArtikel = async (req, res) => {
-  try {
-    let id = req.params.customerId;
 
-    const token = req.headers.authorization;
 
-    const {
-      artikelName,
-      artikelPrice,
-      artikelBeschreibung,
-      artikelRabat,
-      artikelKodu,
-    } = req.body;
-
-    let date = new Date(0);
-    let artikels = [
-      {
-        artikelName: artikelName,
-        artikelPrice: artikelPrice,
-        artikelBeschreibung: artikelBeschreibung,
-        artikelRabat: artikelRabat,
-        artikelKodu: artikelKodu,
-        createdAt: date,
-        updatedAt: date,
-        timestamp: timestamp,
-      },
-    ];
-
-    const updatedCustomer = await Customer.findOneAndUpdate(
-      // {_id: id},
-      {
-        $addToSet: { artikels: { $each: artikels } },
-        //: $setOnInsert: {updatedAt: new Date()},
-      },
-      { timestamps: { createdAt: true, updatedAt: false }, new: true }
-    );
-    res.json(updatedCustomer);
-    console.log("Add artikel OK:", updatedCustomer);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error.message });
-  }
-};
-// Create Artikel
+// Create Rechnung
 export const addRechnung = async (req, res) => {
   try {
-    let id = req.params.customerId;
+    let id = req.params.id;
 
     const token = req.headers.authorization;
 
@@ -209,12 +177,12 @@ export const addRechnung = async (req, res) => {
     ];
 
     const updatedCustomer = await Customer.findOneAndUpdate(
-      // {_id: id},
+      { _id: id },
       {
         $addToSet: { rechnungs: { $each: rechnungs } },
         //: $setOnInsert: {updatedAt: new Date()},
-      },
-      { timestamps: { createdAt: true, updatedAt: false }, new: true }
+      }
+      // { timestamps: { createdAt: true, updatedAt: false }, new: true }
     );
     res.json(updatedCustomer);
     console.log("Add rechnung OK:", updatedCustomer);

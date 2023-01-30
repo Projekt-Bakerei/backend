@@ -1,13 +1,89 @@
 import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 // Empfänger Schema
-const FirmaRechnungSchema = new mongoose.Schema(
+// const FirmaLieferscheinSchema = new Schema(
+//   {
+//     LieferFirmaKundenNummer: String,
+//     LiefertFirma: String,
+//     LiefertFirmaAdresse: String,
+//     LiefertFirmaKontakt: String,
+//     LiefertFirmaKontaktPerson: String,
+//     LieferscheinNummer: String,
+//     LieferscheinDatum: String,
+//     LieferscheinZeitrum: String,
+//   },
+//   {
+//     Produckt:[{
+//       artikelKodu: String,
+//       artikelName: String,
+//       artikelMenge: Number,
+//       artikelZutaten: String,
+//       artikelKistenzahl: Number,
+//     }],
+//   },
+//   {
+//     timestamps: true,
+//     versionKey: false,
+//     id: true,
+//     toJSON: {
+//       transform(doc, ret) {
+//         ret.id = ret._id;
+//         delete ret._id;
+//       },
+//     },
+//   }
+// );
+
+// const FirmaRechnungSchema = new Schema(
+//   {
+//     artikelRe: [{
+//     firmenName: String,
+//     firmenAdresse: String,
+//     firmenStadt: String,
+//     ansprechpartner: String,
+//     rechnungsNummer: Number,
+//     myFirma: String,
+//   }]
+// },
+//   {
+//     timestamps: true,
+//     versionKey: false,
+//     id: true,
+//     toJSON: {
+//       transform(doc, ret) {
+//         ret.id = ret._id;
+//         delete ret._id;
+//       },
+//     },
+//   }
+// );
+
+// const ArtickelCustomerSchema = new Schema(
+//   {
+//     artikelName: String,
+//     artikelPrice: String,
+//     artikelBeschreibung: String,
+//     artikelKodu: String,
+//   },
+//   {
+//     timestamps: true,
+//     versionKey: false,
+//     id: true,
+//     toJSON: {
+//       transform(doc, ret) {
+//         ret.id = ret._id;
+//         delete ret._id;
+//       },
+//     },
+//   },
+// );
+
+const ArtikelCustomerSchema = new mongoose.Schema(
   {
-    firmenName: String,
-    firmenAdresse: String,
-    firmenStadt: String,
-    ansprechpartner: String,
-    rechnungsNummer: Number,
-    myFirma: String,
+    artikelName: String,
+    artikelPrice: Number,
+    artikelBeschreibung: String,
+    artikelKodu: Number,
   },
   {
     timestamps: true,
@@ -20,108 +96,102 @@ const FirmaRechnungSchema = new mongoose.Schema(
       },
     },
   }
-);
-export const FirmaRechnung = mongoose.model(
-  "FirmaRechnung",
-  FirmaRechnungSchema
-);
 
-
-const ArtickelSchema = new mongoose.Schema(
-  {
-    artikelName: { type: String },
-    artikelPrice: { type: String },
-    artikelBeschreibung: { type: String },
-    artikelRabat: { type: String },
-    artikelKodu: { type: String },
-  },
-  {
-    timestamps: true,
-    versionKey: false,
-    id: true,
-    toJSON: {
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-      },
-    },
-  }
+  //{timestamps: true}
 );
-export const Artickel = mongoose.model(
-  "Artickel",
-  ArtickelSchema
-);
-
-const ArtickelCustomerSchema = new mongoose.Schema(
-  {
-    artikelName: { type: String },
-    artikelPrice: { type: String },
-    artikelBeschreibung: { type: String },
-    artikelRabat: { type: String },
-    artikelKodu: { type: String },
-  },
-  {
-    timestamps: true,
-    versionKey: false,
-    id: true,
-    toJSON: {
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-      },
-    },
-  }
-  ,
-  {
-    artickel: [Artickel],
-  }
-);
-export const ArtickelCustomer = mongoose.model(
-  "ArtickelCustomer",
-  ArtickelCustomerSchema
-);
-
-const RechnungSchema = new mongoose.Schema(
-  {
-    rechnungsnummern: Number,
-    kundennummer: Number,
-  },
-  {
-    timestamps: true,
-    versionKey: false,
-    id: true,
-    toJSON: {
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-      },
-    },
-  },
-  {
-    firmato: [FirmaRechnungSchema],
-  },
-  {
-    artickel: [ArtickelCustomer],
-  }
-);
-export const Rechnung = mongoose.model("Rechnung", RechnungSchema);
-
+export const ArtikelCustomer = mongoose.model("ArtikelCustomer", ArtikelCustomerSchema, "customers");
 const customerSchema = new mongoose.Schema(
   {
-    kodu: { type: String },
-    passiv: { type: String, trim: true, default: false },
-    //passiv: { type: String },
-    hitab: { type: String },
-    kategory: { type: String },
-    ismi: { type: String },
-    kdv: { type: String },
-    kisi: { type: String },
-    sekli: { type: String },
-    cadde: { type: String },
-    plz: { type: Number },
-    yer: { type: String },
-    telefon: { type: String },
-    mobil: { type: String },
+    artikels: [ArtikelCustomerSchema],
+    // artikels: [
+    //   {
+    //     artikelName: String,
+    //     artikelPrice: Number,
+    //     artikelBeschreibung: String,
+    //     artikelKodu: Number,
+    //   },
+    // ],
+
+    kodu: {
+      type: Number,
+      trim: true,
+      required: false,
+      maxlength: 20,
+    },
+    passiv: {
+      type: String,
+      trim: true,
+      required: false,
+    },
+    hitab: {
+      type: String,
+      required: false,
+      maxlength: 20000,
+    },
+    kategory: {
+      type: String,
+      trim: true,
+      required: false,
+      maxlength: 32,
+    },
+    ismi: {
+      type: String,
+      required: false,
+      maxlength: 32,
+      trim: true,
+    },
+    kdv: {
+      type: String,
+      required: false,
+      maxlength: 32,
+      trim: true,
+    },
+    kisi: {
+      type: String,
+      required: false,
+      maxlength: 32,
+      trim: true,
+    },
+    sekli: {
+      type: String,
+      required: false,
+      maxlength: 32,
+      trim: true,
+    },
+    cadde: {
+      type: String,
+      required: false,
+      maxlength: 32,
+      trim: true,
+    },
+    plz: {
+      type: Number,
+      required: false,
+      maxlength: 5,
+      trim: true,
+    },
+    yer: {
+      type: String,
+      required: false,
+      maxlength: 32,
+      trim: true,
+    },
+    telefon: {
+      type: String,
+      required: false,
+      maxlength: 32,
+      trim: true,
+    },
+    mobil: {
+      type: String,
+      required: false,
+      maxlength: 32,
+      trim: true,
+    },
+    // artikelName: String,
+    // artikelPrice: String,
+    // artikelBeschreibung: String,
+    // artikelKodu: Number,
   },
   {
     timestamps: true,
@@ -133,9 +203,6 @@ const customerSchema = new mongoose.Schema(
         delete ret._id;
       },
     },
-  },
-  {
-    rechnung: [RechnungSchema],
   }
 );
 
