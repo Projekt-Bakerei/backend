@@ -6,6 +6,7 @@ import bodyParser from "body-parser"
 // import { sequelizeCrud } from "express-sequelize-crud";
 import userRoutes from "./routers/users.js";
 import customerRoutes from "./routers/customers.js";
+import lieferscheinNummer from "./routers/lieferscheinsnummer.js";
 import miterbeiterRoutes from "./routers/miterbeiters.js";
 import artikelRoutes from "./routers/artikels.js";
 import customerProducts from "./routers/customerProducts.js"
@@ -27,9 +28,10 @@ const PORT = process.env.PORT || 8080;
 
 app.use("/users", userRoutes);
 app.use("/customers", customerRoutes);
+app.use("/lieferscheinsnummer", lieferscheinNummer);
 app.use("/miterbeiters", miterbeiterRoutes);
 app.use("/newartikels", artikelRoutes);
-app.use("/customerproducts", customerProducts)
+app.use("/customerproducts", customerProducts);
 app.use("/customerproduct", addProduct);
 app.use("/delproduct", delProduct);
 
