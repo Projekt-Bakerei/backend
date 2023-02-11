@@ -96,13 +96,74 @@ const ArtikelCustomerSchema = new mongoose.Schema(
       },
     },
   }
-
-  //{timestamps: true}
 );
-export const ArtikelCustomer = mongoose.model("ArtikelCustomer", ArtikelCustomerSchema, "customers");
+export const ArtikelCustomer = mongoose.model(
+  "ArtikelCustomer",
+  ArtikelCustomerSchema,
+  "customers"
+);
+
+const LieferscheinCustomerSchema = new mongoose.Schema(
+  {
+    LieferFirmaKundenNummer: {
+      type: String,
+    },
+    LieferFirma: {
+      type: String,
+    },
+    LieferFirmaAdresse: {
+      type: String,
+    },
+    LieferFirmaKontakt: {
+      type: String,
+    },
+    LieferFirmaKontaktPerson: {
+      type: String,
+    },
+    LieferNummer: {
+      type: String,
+    },
+    LieferDatum: {
+      type: String,
+    },
+    LieferZeitrum: {
+      type: String,
+    },
+    Lieferant: {
+      type: String,
+    },
+    artikelsLe: [
+      {
+        artikelNameLe: String,
+        artikelPriceLe: Number,
+        artikelBeschreibungLe: String,
+        artikelKoduLe: Number,
+        artikelMengeLe: Number,
+      },
+    ],
+  }, 
+  {
+    timestamps: true,
+    versionKey: false,
+    id: true,
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  }
+);
+export const LieferscheinCustomer = mongoose.model(
+  "LieferscheinCustomer",
+  LieferscheinCustomerSchema,
+  "customers"
+);
+
 const customerSchema = new mongoose.Schema(
   {
     artikels: [ArtikelCustomerSchema],
+    lieferschein: [LieferscheinCustomerSchema],
     // artikels: [
     //   {
     //     artikelName: String,
@@ -188,10 +249,6 @@ const customerSchema = new mongoose.Schema(
       maxlength: 32,
       trim: true,
     },
-    // artikelName: String,
-    // artikelPrice: String,
-    // artikelBeschreibung: String,
-    // artikelKodu: Number,
   },
   {
     timestamps: true,
