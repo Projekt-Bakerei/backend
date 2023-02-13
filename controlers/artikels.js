@@ -88,14 +88,18 @@ export const editNewArtikel = async (req, res) => {
 };
 
 // Delete Artikel
+
 export const deleteNewArtikel = async (req, res) => {
+  const {id} = req.params
   try {
-    const newartikels = await newartikels.findByIdAndDelete(
-      req.params.NewartikelId
+    const artikels = await AddArtikel.findByIdAndDelete(
+      id
     ).exec();
-    res.json(newartikels);
+    res.json(artikels);
+
+    console.log("Miterbeiter Delete OK!", id);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "server hatasi" });
+    res.status(500).json({ error: "server error" });
   }
 };

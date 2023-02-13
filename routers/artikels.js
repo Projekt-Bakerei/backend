@@ -14,6 +14,6 @@ router.get("/", GetNewArtikels);
 router.post("/addartikel", addNewArtikel);
 router.put("/editartikel", editNewArtikel);
 router.put("/editartikel/:id", editNewArtikel);
-router.delete("/deleteartikel", deleteNewArtikel);
+router.delete("/deleteartikel/:id", deleteNewArtikel);
 
 export default router;
