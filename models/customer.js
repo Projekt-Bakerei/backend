@@ -174,7 +174,7 @@ const customerSchema = new mongoose.Schema(
     // ],
 
     kodu: {
-      type: Number,
+      type: String,
       trim: true,
       required: false,
       maxlength: 20,

@@ -132,14 +132,17 @@ export const editCustomer = async (req, res) => {
 
 // Delete Customer
 export const deleteCustomer = async (req, res) => {
+  const {id} = req.params
   try {
-    const customers = await Customer.findByIdAndDelete(
-      req.params.customerId
+    const customer = await Customer.findByIdAndDelete(
+      id
     ).exec();
-    res.json(customers);
+    res.json(customer);
+
+    console.log("Customer Delete OK!", id);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "server hatasi" });
+    res.status(500).json({ error: "server error" });
   }
 };
 

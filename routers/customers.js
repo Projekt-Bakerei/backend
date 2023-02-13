@@ -23,7 +23,7 @@ router.get("/customer/:id", getCustomer);
 router.post("/addcustomer", addCustomer);
 router.put("/editcustomer", editCustomer);
 router.put("/editcustomer/:id", editCustomer);
-router.delete("/deletecustomer", deleteCustomer);
+router.delete("/deletecustomer/:id", deleteCustomer);
 
 
 // Add Rechnung
