@@ -105,45 +105,23 @@ export const ArtikelCustomer = mongoose.model(
 
 const LieferscheinCustomerSchema = new mongoose.Schema(
   {
-    LieferFirmaKundenNummer: {
-      type: String,
-    },
-    LieferFirma: {
-      type: String,
-    },
-    LieferFirmaAdresse: {
-      type: String,
-    },
-    LieferFirmaKontakt: {
-      type: String,
-    },
-    LieferFirmaKontaktPerson: {
-      type: String,
-    },
-    LieferNummer: {
-      type: String,
-    },
-    LieferDatum: {
-      type: String,
-    },
-    LieferZeitrum: {
-      type: String,
-    },
-    Lieferant: {
-      type: String,
-    },
-    artikelsLe: [
-      {
-        artikelNameLe: String,
-        artikelPriceLe: Number,
-        artikelBeschreibungLe: String,
-        artikelKoduLe: Number,
-        artikelMengeLe: Number,
-      },
-    ],
-  }, 
+    lieferscheinNummer: String,
+    lieferscheinDatum: String,
+    leistungDatum: String,
+    lieferant: String,
+  },
   {
-    timestamps: true,
+    lieferscheinArtikels: 
+      [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'Lieferschein',
+        inputArtikelName: String,
+        inputArtikelMenge: String,
+        inputArtikelEinheit: String,
+        inputArtikelKisten: String,
+      }],
+  },
+  {
+    // timestamps: true,
     versionKey: false,
     id: true,
     toJSON: {
@@ -163,7 +141,25 @@ export const LieferscheinCustomer = mongoose.model(
 const customerSchema = new mongoose.Schema(
   {
     artikels: [ArtikelCustomerSchema],
-    lieferschein: [LieferscheinCustomerSchema],
+    // lieferscheins: [
+    //   {
+    //     lieferscheinNummer: String,
+    //     lieferscheinDatum: String,
+    //     leistungDatum: String,
+    //     lieferant: String,
+    //   },
+    //   {
+    //         lieferscheinArtikels: [
+    //           {
+    //             inputArtikelName: String,
+    //             inputArtikelMenge: String,
+    //             inputArtikelEinheit: String,
+    //             inputArtikelKisten: String,
+    //           },
+    //         ],
+    //       },
+    // ],
+     lieferscheins: [LieferscheinCustomerSchema],
     // artikels: [
     //   {
     //     artikelName: String,

@@ -11,7 +11,8 @@ import miterbeiterRoutes from "./routers/miterbeiters.js";
 import artikelRoutes from "./routers/artikels.js";
 import customerProducts from "./routers/customerProducts.js"
 import addProduct from "./routers/customerProducts.js"
-import delProduct  from "./routers/customerProducts.js";
+import delProduct from "./routers/customerProducts.js";
+import  addLieferschein  from "./routers/lieferscheinCustomer.js";
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use("/newartikels", artikelRoutes);
 app.use("/customerproducts", customerProducts);
 app.use("/customerproduct", addProduct);
 app.use("/delproduct", delProduct);
+app.use("/customerlieferschein", addLieferschein);
 
 
 app.get("/", (req, res) => {
