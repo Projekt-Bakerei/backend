@@ -111,14 +111,14 @@ const LieferscheinCustomerSchema = new mongoose.Schema(
     lieferant: String,
   },
   {
-    lieferscheinArtikels: 
-      [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'Lieferschein',
+    lieferscheinArtikels: [
+      {
         inputArtikelName: String,
         inputArtikelMenge: String,
         inputArtikelEinheit: String,
         inputArtikelKisten: String,
-      }],
+      },
+    ],
   },
   {
     // timestamps: true,
@@ -141,25 +141,16 @@ export const LieferscheinCustomer = mongoose.model(
 const customerSchema = new mongoose.Schema(
   {
     artikels: [ArtikelCustomerSchema],
-    // lieferscheins: [
-    //   {
-    //     lieferscheinNummer: String,
-    //     lieferscheinDatum: String,
-    //     leistungDatum: String,
-    //     lieferant: String,
-    //   },
-    //   {
-    //         lieferscheinArtikels: [
-    //           {
-    //             inputArtikelName: String,
-    //             inputArtikelMenge: String,
-    //             inputArtikelEinheit: String,
-    //             inputArtikelKisten: String,
-    //           },
-    //         ],
-    //       },
-    // ],
-     lieferscheins: [LieferscheinCustomerSchema],
+    lieferscheins: [
+      {
+        lieferscheinNummer: String,
+        lieferscheinDatum: String,
+        leistungDatum: String,
+        lieferant: String,
+        lieferscheinArtikelsDb: [],
+      },
+    ],
+    //lieferscheins: [LieferscheinCustomerSchema],
     // artikels: [
     //   {
     //     artikelName: String,
