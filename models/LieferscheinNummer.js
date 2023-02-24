@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const LieferscheinNummerSchema = new mongoose.Schema(
   {
-    LieferscheinNummer: {
-      type: Number,
+    lieferscheinNummerNew: {
+      type: String,
       trim: true,
       required: false,
       maxlength: 20,
